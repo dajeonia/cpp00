@@ -1,5 +1,5 @@
 NAME = phonebook
-SOURCES = main.cpp
+SOURCES = main.cpp phonebook.cpp
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SOURCES:.cpp=.o))
 SRCS = $(addprefix $(SRC_DIR)/, $(SOURCES))
