@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+std::string	ft_chop(std::string str);
+
 class	Contact
 {
 	private:
@@ -64,20 +66,6 @@ class	PhoneBook
 			std::cout << '|';
 			std::cout << "==========";
 			std::cout << '|' << std::endl;
-			std::cout << '|';
-			std::cout << std::setw(10) << std::internal << "INDEX";
-			std::cout << '|';
-			std::cout << std::setw(10) << std::internal << "NAME";
-			std::cout << '|';
-			std::cout << std::setw(10) << std::internal << "CONTACT";
-			std::cout << '|' << std::endl;
-			std::cout << '|';
-			std::cout << "==========";
-			std::cout << '|';
-			std::cout << "==========";
-			std::cout << '|';
-			std::cout << "==========";
-			std::cout << '|' << std::endl;
 			for (std::vector<Contact>::iterator iter = book.begin(); \
 					iter != book.end(); \
 					++iter)
@@ -85,9 +73,9 @@ class	PhoneBook
 				std::cout << '|';
 				std::cout << std::setw(10) << std::right << std::distance(book.begin(), iter);
 				std::cout << '|';
-				std::cout << std::setw(10) << std::right << (*iter).getName();
+				std::cout << std::setw(10) << std::right << ft_chop((*iter).getName());
 				std::cout << '|';
-				std::cout << std::setw(10) << std::right << (*iter).getNumber();
+				std::cout << std::setw(10) << std::right << ft_chop((*iter).getNumber());
 				std::cout << '|' << std::endl;
 			}
 			std::cout << '|';
@@ -97,8 +85,20 @@ class	PhoneBook
 			std::cout << '|';
 			std::cout << "==========";
 			std::cout << '|' << std::endl;
+			std::cout << "Which index you find? ";
+			
 		}
 };
+
+std::string	ft_chop(std::string str)
+{
+	if (str.length() > 10)
+	{
+		str = str.substr(0, 9);
+		str += '.';
+	}
+	return (str)5
+}
 
 int	main(void)
 {
@@ -112,10 +112,6 @@ int	main(void)
 		getline(std::cin, input);
 		if (std::cin.eof() == 1 || input == "EXIT")
 		{
-			// std::cin.clear();
-			// std::clearerr(stdin);
-			// std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			// std::cout << std::endl;
 			std::cout << "Goodbye!" << std::endl;
 			break ;
 		}
@@ -132,3 +128,5 @@ int	main(void)
 	}
 	return (0);
 }
+
+
