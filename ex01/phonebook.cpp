@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include "PhoneBook.hpp"
@@ -16,12 +17,14 @@ void	PhoneBook::push(Contact ct)
 		book[size++] = ct;
 }
 
-void	PhoneBook::table(void)
+int	PhoneBook::table(void)
 {
 	const std::string index[4] = {"Index", "First Name", "Last Name", \
 		"Nickname"};
 	const char	sep = ':';
 
+	if (size == 0)
+		return (0);
 	for (int i=0; i!=4; ++i)
 		std::cout << sep << "==========";
 	std::cout << sep << std::endl;
@@ -33,7 +36,7 @@ void	PhoneBook::table(void)
 	std::cout << sep << std::endl;
 	for (int i=0; i!=size; ++i)
 	{
-		std::cout << sep << std::setw(10) << i;
+		std::cout << sep << std::setw(10) << i+1;
 		std::cout << sep << std::setw(10) << ft_chop(book[i].getIndex(0));
 		std::cout << sep << std::setw(10) << ft_chop(book[i].getIndex(1));
 		std::cout << sep << std::setw(10) << ft_chop(book[i].getIndex(2));
@@ -42,6 +45,7 @@ void	PhoneBook::table(void)
 	for (int i=0; i!=4; ++i)
 		std::cout << sep << "==========";
 	std::cout << sep << std::endl;
+	return (1);
 }
 
 void	PhoneBook::add(void)
@@ -51,14 +55,19 @@ void	PhoneBook::add(void)
 		"Nickname", "Phone Number", "Darkest Secret"};
 	Contact				ct;
 
-	std::cout << "New!" << std::endl;
+		std::cout << "\033[0;33m" << "ADD" << std::endl << "\033[0;39m";
 	for (int i=0; i!= 5; ++i)
 	{
 		std::cout << "What your " << prompt[i] << "? ";
 		getline(std::cin, temp);
+		if (std::cin.eof() == 1)
+		{
+			std::cout << std::endl;
+			break ;
+		}
 		if (temp == "")
 		{
-			std::cout << "ADD: invalid input" << std::endl;
+			std::cout << "\033[0;33m" << "ADD: Empty input" << std::endl << "\033[0;39m";
 			--i;
 			continue ;
 		}
@@ -69,13 +78,32 @@ void	PhoneBook::add(void)
 
 void	PhoneBook::search(void)
 {
-	int	index = -1;
-
-	table();
-	std::cout << "Please input the index: ";
-	std::cin >> index;
-	if (0 <= index && index < size)
-		book[index].print();
-	else
-		std::cerr << "Invalid index" << std::endl;
+	while (true)
+	{
+		if (table() == 0)
+		{
+			std::cout << "\033[0;33m" << "SEARCH: Phonebook is empty" << std::endl << "\033[0;39m";
+			return ;
+		}
+		std::cout << "\033[0;33m" << "SEARCH" << std::endl << "\033[0;39m";
+		std::cout << "\033[0;33m" << "Index> " << "\033[0;39m";
+		std::string buf;
+		getline(std::cin, buf);
+		if (std::cin.eof() == 1)
+		{
+			std::cout << std::endl;
+			break ;
+		}
+		else if (buf == "EXIT")
+			break ;
+		const char *cbuf = buf.c_str();
+		int index = atoi(cbuf);
+		if (1 <= index && index <= size)
+		{
+			book[index - 1].print();
+			break ;
+		}
+		else
+			std::cout << "\033[0;33m" << "SEARCH: Invalid index" << std::endl << "\033[0;39m";
+	}
 }
