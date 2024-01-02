@@ -4,6 +4,7 @@
 #include "PhoneBook.hpp"
 
 std::string	ft_chop(std::string str);
+void	ft_putline(int width, int column, char sep);
 
 void	PhoneBook::push(Contact ct)
 {
@@ -17,76 +18,66 @@ void	PhoneBook::push(Contact ct)
 		book[size++] = ct;
 }
 
-int	PhoneBook::table(void)
+void	PhoneBook::printTable(void)
 {
-	const std::string index[4] = {"Index", "First Name", "Last Name", \
-		"Nickname"};
-	const char	sep = ':';
+	const std::string label[4] = {"Index", "First Name", "Last Name", "Nickname"};
+	const char sep = '|';
 
-	if (size == 0)
-		return (0);
+	ft_putline(10, 4, sep);
 	for (int i=0; i!=4; ++i)
-		std::cout << sep << "==========";
+		std::cout << sep << std::setw(10) << label[i];
 	std::cout << sep << std::endl;
-	for (int i=0; i!=4; ++i)
-		std::cout << sep << std::setw(10) << std::internal << index[i];
-	std::cout << sep << std::endl;
-	for (int i=0; i!=4; ++i)
-		std::cout << sep << "==========";
-	std::cout << sep << std::endl;
+	ft_putline(10, 4, sep);
 	for (int i=0; i!=size; ++i)
 	{
 		std::cout << sep << std::setw(10) << i+1;
-		std::cout << sep << std::setw(10) << ft_chop(book[i].getIndex(0));
-		std::cout << sep << std::setw(10) << ft_chop(book[i].getIndex(1));
-		std::cout << sep << std::setw(10) << ft_chop(book[i].getIndex(2));
+		for (int j=0; j!=3; ++j)
+			std::cout << sep << std::setw(10) << ft_chop(book[i].at(j));
 		std::cout << sep << std::endl;
 	}
-	for (int i=0; i!=4; ++i)
-		std::cout << sep << "==========";
-	std::cout << sep << std::endl;
-	return (1);
+	ft_putline(10, 4, sep);
 }
 
 void	PhoneBook::add(void)
 {
-	std::string			temp;
-	const std::string	prompt[5] = {"First Name", "Last Name", \
-		"Nickname", "Phone Number", "Darkest Secret"};
-	Contact				ct;
-
-		std::cout << "\033[0;33m" << "ADD" << std::endl << "\033[0;39m";
+	static const std::string label[5] \
+		= {"First Name", "Last Name", "Nickname", "Phone Number", "Darkest Secret"};
+	std::cout << "\033[0;33m" << "ADD" << std::endl << "\033[0;39m";
+	std::string	index[5];
 	for (int i=0; i!= 5; ++i)
 	{
-		std::cout << "What your " << prompt[i] << "? ";
-		getline(std::cin, temp);
+		std::string arg;
+		std::cout << "What your " << label[i] << "? ";
+		getline(std::cin, arg);
 		if (std::cin.eof() == 1)
 		{
 			std::cout << std::endl;
 			break ;
 		}
-		if (temp == "")
+		if (arg == "")
 		{
 			std::cout << "\033[0;33m" << "ADD: Empty input" << std::endl << "\033[0;39m";
 			--i;
-			continue ;
 		}
-		ct.setIndex(i, temp);
+		else
+			index[i] = arg;
 	}
-	push(ct);
+	push(Contact(index));
 }
 
 void	PhoneBook::search(void)
 {
 	while (true)
 	{
-		if (table() == 0)
+		if (size == 0)
 		{
 			std::cout << "\033[0;33m" << "SEARCH: Phonebook is empty" << std::endl << "\033[0;39m";
 			return ;
 		}
-		std::cout << "\033[0;33m" << "SEARCH" << std::endl << "\033[0;39m";
-		std::cout << "\033[0;33m" << "Index> " << "\033[0;39m";
+		else
+			std::cout << "\033[0;33m" << "SEARCH" << std::endl << "\033[0;39m";
+		printTable();
+		std::cout << "Which index looking for? ";
 		std::string buf;
 		getline(std::cin, buf);
 		if (std::cin.eof() == 1)
@@ -96,11 +87,11 @@ void	PhoneBook::search(void)
 		}
 		else if (buf == "EXIT")
 			break ;
-		const char *cbuf = buf.c_str();
-		int index = atoi(cbuf);
+		const char *cbuf(buf.c_str());
+		int index(atoi(cbuf));
 		if (1 <= index && index <= size)
 		{
-			book[index - 1].print();
+			book[index - 1].printDetails();
 			break ;
 		}
 		else
