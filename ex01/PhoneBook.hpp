@@ -12,7 +12,7 @@ class PhoneBook
 		PhoneBook() : size(0) {}
 		~PhoneBook() {}
 
-		void push(Contact ct);
+		void pushBack(Contact ct);
 		void printTable(void);
 
 		void add(void);
