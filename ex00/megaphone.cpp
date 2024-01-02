@@ -4,16 +4,14 @@ void	str_toupper(std::string &str);
 
 int	main(int argc, char *argv[])
 {
-	std::string	str;
-
 	if (argc == 1)
 	{
-		str = "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
+		std::string str = "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
 		std::cout << str;
 	}
 	for (int i=1; i < argc; ++i)
 	{
-		str = argv[i];
+		std::string str = argv[i];
 		str_toupper(str);
 		std::cout << str;
 	}
