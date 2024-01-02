@@ -7,30 +7,23 @@ Contact& Contact::operator=(const Contact &other)
 	return (*this);
 }
 
-Contact::Contact(std::string first, std::string last, std::string nick, std::string number, std::string secret)
+Contact::Contact(const std::string argv[5])
 {
-	index[0] = first;
-	index[1] = last;
-	index[2] = nick;
-	index[3] = number;
-	index[4] = secret;
+	for (int i=0; i!=5; ++i)
+		index[i] = argv[i];
 }
 
-void	Contact::print(void)
-{
-	std::cout << "First Name: " << index[0] << std::endl;
-	std::cout << "Last Name: " << index[1] << std::endl;
-	std::cout << "Nickname: " << index[2] << std::endl;
-	std::cout << "Phone Number: " << index[3] << std::endl;
-	std::cout << "Darkest Secret: " << index[4] << std::endl;
-}
-
-const std::string	Contact::getIndex(int n)
+std::string	Contact::at(int n) const
 {
 	return (index[n]);
 }
 
-void	Contact::setIndex(int n, const std::string str)
+void	Contact::printDetails(void) const
 {
-	index[n] = str;
+	const std::string label[5] = \
+   	{"First Name", "Last Name", "Nickname", "Phone Number", "Darkest Secret"};
+
+	for (int i=0; i!=5; ++i)
+		std::cout << label[i] << ": " << index[0] << std::endl;
 }
+

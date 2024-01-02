@@ -8,13 +8,12 @@ private:
 	std::string	index[5];
 public:
 	Contact() {}
-	Contact(std::string, std::string, std::string, std::string, std::string);
+	Contact(const std::string[5]);
 	~Contact() {}
 
 	Contact& operator=(const Contact& other);
-	// Contact(const Contact& other) { this = other; }
+	Contact(const Contact& other) { *this = other; }
 
-	void				print(void);
-	const std::string	getIndex(int n);
-	void				setIndex(int n, std::string str);
+	std::string at(int n) const;
+	void printDetails(void) const;
 };
