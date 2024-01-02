@@ -13,7 +13,8 @@ class PhoneBook
 		~PhoneBook() {}
 
 		void	push(Contact ct);
-		void	table(void);
+		int		table(void);
+
 		void	add(void);
 		void	search(void);
 };
