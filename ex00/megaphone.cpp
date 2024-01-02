@@ -21,6 +21,6 @@ int	main(int argc, char *argv[])
 
 void	str_toupper(std::string &str)
 {
-	for	(int i=0; str[i]; ++i)
-		str[i] = std::toupper(str[i]);
+	for	(std::string::iterator iter = str.begin(); iter != str.end(); ++iter)
+		*iter = std::toupper(*iter);
 }
