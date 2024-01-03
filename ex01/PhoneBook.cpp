@@ -1,12 +1,9 @@
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
 #include "PhoneBook.hpp"
 
 std::string	ft_chop(std::string str);
 void	ft_putline(int width, int column, char sep);
 
-void	PhoneBook::push(Contact ct)
+void	PhoneBook::pushBack(Contact ct)
 {
 	if (size == 8)
 	{
@@ -62,7 +59,7 @@ void	PhoneBook::add(void)
 		else
 			index[i] = arg;
 	}
-	push(Contact(index));
+	pushBack(Contact(index));
 }
 
 void	PhoneBook::search(void)

@@ -1,12 +1,5 @@
 #include "Contact.hpp"
 
-Contact& Contact::operator=(const Contact &other)
-{
-	for (int i=0; i!=5; ++i)
-		this->index[i] = other.index[i];
-	return (*this);
-}
-
 Contact::Contact(const std::string argv[5])
 {
 	for (int i=0; i!=5; ++i)
@@ -24,6 +17,6 @@ void	Contact::printDetails(void) const
    	{"First Name", "Last Name", "Nickname", "Phone Number", "Darkest Secret"};
 
 	for (int i=0; i!=5; ++i)
-		std::cout << label[i] << ": " << index[0] << std::endl;
+		std::cout << label[i] << ": " << index[i] << std::endl;
 }
 

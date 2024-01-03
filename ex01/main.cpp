@@ -7,16 +7,13 @@ int	main(void)
 {
 	PhoneBook book;
 
+	/*
 	const std::string index[5] = {"Daengmyeong", "Jeon", "dajeon", "010-8205-2328", "Hi"};
 	std::string index2[5] = {"Daeil", "Jeon", "dajeon", "010-8205-2328", "Hi"};
 
-	Contact test2(index2);
-	Contact test3 = test2;
-
-	book.push(Contact(index));
-	book.push(Contact(test2));
-	book.push(Contact(test3));
-
+	book.pushBack(Contact(index));
+	book.pushBack(Contact(index2));
+	*/
 	prompt(book);
 	return (0);
 }

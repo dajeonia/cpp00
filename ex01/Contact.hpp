@@ -11,9 +11,6 @@ public:
 	Contact(const std::string[5]);
 	~Contact() {}
 
-	Contact& operator=(const Contact& other);
-	Contact(const Contact& other) { *this = other; }
-
 	std::string at(int n) const;
 	void printDetails(void) const;
 };

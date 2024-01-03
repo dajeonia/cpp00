@@ -1,6 +1,8 @@
 #ifndef PHONEBOOK_HPP
 # include "Contact.hpp"
 # include <iostream>
+# include <cstdlib>
+# include <iomanip>
 #endif
 
 class PhoneBook
